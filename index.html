@@ -1,0 +1,539 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <link rel="stylesheet"href="https://cdn.jsdelivr.net/gh/allaboutitappscript/fontbank/banks.min.css">
+    <title>Payments ช่องทางชำระค่าบริการ</title>
+    <link rel="stylesheet" href="./Profile-card.css" />
+    <script
+      src="https://kit.fontawesome.com/66aa7c98b3.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;800;900&display=swap");
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  min-height: 100vh;
+}
+
+body {
+  display: grid;
+  place-items: center;
+  font-family: "League Spartan", system-ui, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.2;
+  background-color: #212121;
+  color: #ddd;
+}
+
+ul {
+  list-style: none;
+}
+
+.main {
+  max-width: 75rem;
+  padding: 3em 1.5em;
+}
+
+.main__heading {
+  font-weight: 600;
+  font-size: 2.25em;
+  margin-bottom: 0.75em;
+  text-align: center;
+  color: #eceff1;
+}
+
+.cards {
+  position: relative;
+}
+
+.cards__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5em;
+}
+
+.card {
+  --flow-space: 0.5em;
+  --hsl: var(--hue), var(--saturation), var(--lightness);
+  flex: 1 1 14rem;
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  gap: 1.25em;
+  color: #eceff1;
+  background-color: #2b2b2b;
+  border: 1px solid #eceff133;
+  border-radius: 15px;
+}
+
+.card:nth-child(1) {
+  --hue: 165;
+  --saturation: 82.26%;
+  --lightness: 51.37%;
+}
+
+.card:nth-child(2) {
+  --hue: 291.34;
+  --saturation: 95.9%;
+  --lightness: 61.76%;
+}
+
+.card:nth-child(3) {
+  --hue: 338.69;
+  --saturation: 100%;
+  --lightness: 48.04%;
+}
+
+.card__bullets {
+  line-height: 1.4;
+}
+
+.card__bullets li::before {
+  display: inline-block;
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='16' title='check' fill='%23dddddd'%3E%3Cpath d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z' /%3E%3C/svg%3E");
+  transform: translatey(0.25ch);
+  margin-right: 1ch;
+}
+
+.card__heading {
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.card__price {
+  font-size: 1.75em;
+  font-weight: 700;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1.25em);
+}
+
+.cta {
+  display: block;
+  align-self: end;
+  margin: 1em 0 0.5em 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0d0d0d;
+  padding: 0.7em;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--opacity, 0);
+  -webkit-mask: radial-gradient(
+    25rem 25rem at var(--x) var(--y),
+    #000 1%,
+    transparent 50%
+  );
+  mask: radial-gradient(
+    25rem 25rem at var(--x) var(--y),
+    #000 1%,
+    transparent 50%
+  );
+  transition: 400ms mask ease;
+  will-change: mask;
+}
+
+.overlay .card {
+  background-color: hsla(var(--hsl), 0.15);
+  border-color: hsla(var(--hsl), 1);
+  box-shadow: 0 0 0 1px inset hsl(var(--hsl));
+}
+
+.overlay .cta {
+  display: block;
+  grid-row: -1;
+  width: 100%;
+  background-color: hsl(var(--hsl));
+  box-shadow: 0 0 0 1px hsl(var(--hsl));
+
+}
+
+:not(.overlay) > .card {
+  transition: 400ms background ease;
+  will-change: background;
+}
+
+:not(.overlay) > .card:hover {
+  --lightness: 95%;
+  background: hsla(var(--hsl), 0.1);
+}
+</style>
+<body>
+<div class="pricing-card">
+    <div class="card-header">
+        <div class="card-btn-parent">
+            <button id="basic-plan" class="active">Full Amount</button>
+            <button id="standard-plan">Pay Half </button>
+            <button id="premium-plan">Pay A Portion </button>
+            <div class="overlay"></div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div id="card-basic-plan" class="active">
+            <div class="card-plans">
+                <span class="plan-tag">Full Amount</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระเต็ม</h3>
+                    <h3 class="plan-price">100%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+                <p>ชำระเมื่อได้รับงานทันที 100% ไม่มีผ่อน</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับงานทันที ไม่ติดสัญญาผ่อน</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับพ้อยท์ตามจำนวนที่ชำระ</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ไม่ได้รับพอยท์จากการผ่อนทุกกรณี</div>
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://liff.line.me/2006611268-pJADx5Ga'">ชำระเงินทันที คลิ๊ก </button>
+            </div>
+        </div>
+        <div id="card-standard-plan">
+            <div class="card-plans">
+
+                <span class="plan-tag">Pay Half</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระครึ่งหนึ่ง</h3>
+                    <h3 class="plan-price">50%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+
+                <p>รับงานพร้อมชำระค่าบริการครั้งแรก 50% และอีก 50% ชำระไม่เกิน 15 วัน</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับงานในครั้งแรก 100%</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ค่าธรรมเนียม 1.99% ทั้ง 2 ครั้ง </div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/wrong.svg" alt="">ไม่ได้รับพ้อยท์จากการผ่อน ทุกกรณี</div>
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://line.me/R/oaMessage/@605tgdzp?PayHalf'">เลือก Pay Half</button>
+            </div>
+        </div>
+        <div id="card-premium-plan">
+            <div class="card-plans">
+                <span class="plan-tag">Pay A Portion</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระส่วนหนึ่ง</h3>
+                    <h3 class="plan-price">25%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+                <p>ได้รับงานเมื่อชำระ 25% ครั้งแรก ชำระครั้งละ 25% ผ่อนนานสูงสุดถึง 4 สัปดาห์</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ค่าธรรมเนียม 1.99% /ครั้ง</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ชำระครั้งสุดท้าย ฟรีค่าธรรมเนียม 1.99%</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/wrong.svg" alt="">ไม่ได้รับพ้อยท์จากการผ่อน ทุกกรณี</div>
+
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://line.me/R/oaMessage/@605tgdzp?PayAPortion'">เลือก Pay A Portion</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+const planBtns = document.querySelectorAll(".card-btn-parent button");
+const plans = document.querySelectorAll(".card-body > div");
+
+planBtns.forEach(planBtn => {
+    planBtn.addEventListener("click", function() {
+        removeClass();
+        this.classList.add("active");
+        let btnVal = this.getAttribute("id");
+        let btnId = "#card-"+btnVal;
+        document.querySelector(btnId).classList.add("active");
+    })
+})
+
+function removeClass() {
+    planBtns.forEach(planBtn => {
+        if(planBtn.classList.contains("active")) {
+            planBtn.classList.remove("active");
+        }
+    });
+    plans.forEach(plan => {
+        if(plan.classList.contains("active")) {
+            plan.classList.remove("active");
+        }
+    });
+}
+</script>
+</body>
+</html>
+        row-gap: 20px;
+
+        // just postion assignment
+        position: absolute;
+        top: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+
+
+        .card-header {
+            width: 100%;
+            height: 60px;
+            padding: 10px;
+            border: 1px solid #ededed;
+            border-radius: 10px;
+            .card-btn-parent {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                position: relative;
+                button {
+                    width: calc(100%/3);
+                    height: 100%;
+                    border: 0;
+                    border-radius: 7px;
+                    background-color: transparent;
+                    cursor: pointer;
+                    z-index: 1;
+                    font-weight: 500;
+                    transition: color .5s ease;
+                    &:nth-of-type(1).active, &:nth-of-type(1).active ~ div {
+                        left: 0px;
+                        color: #fff;
+                    }
+                    &:nth-of-type(2).active, &:nth-of-type(2).active ~ div {
+                        left: calc(100%/3);
+                        color: #fff;
+                    }
+                    &:nth-of-type(3).active, &:nth-of-type(3).active ~ div {
+                        left: calc(calc(100%/3)*2);
+                        color: #fff;
+                    }
+                }
+                div {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: calc(100%/3);
+                    height: 100%;
+                    background: #45a69a;
+                    border-radius: 7px;
+                    transition: left .5s ease;
+                }
+            }
+        }
+        .card-body {
+            display: flex;
+            width: 100%;
+            padding: 10px 20px;
+            > div {
+                width: 100%;
+                height: auto;
+                display: none;
+                .card-plans {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    row-gap: 5px;
+                    span {
+                        color: gray;
+                        font-weight: 500;
+                        font-size: 13px;
+                        letter-spacing: .5px;
+                    }
+                    div {
+                        display: flex;
+                        justify-content: space-between;
+                        h3 {
+                            font-size: 24px;
+
+                        }
+                    }
+                }
+                .card-content {
+                    margin-top: 25px;
+                    > p {
+                        line-height: 20px;
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+                    .card-lists {
+                        margin-top: 20px;
+                        display: flex;
+                        flex-direction: column;
+                        row-gap: 10px;
+                        .card-list {
+                            display: flex;
+                            column-gap: 10px;
+                            font-size: 14px;
+                            img {
+                                width: 15px;
+                            }
+                        }
+                    }
+                }
+                .card-button {
+                    margin-top: 35px;
+                    button {
+                        border: 0;
+                        width: 100%;
+                        height: 40px;
+                        background-color: #45a69a;
+                        border-radius: 20px;
+                        color: #fff;
+                        font-size: 14px;
+                        cursor: pointer;
+                        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.286);
+                        letter-spacing: .5px;
+                        font-weight: 500;
+                    }
+                }
+                &.active {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 400px) {
+    body {
+
+        .pricing-card {
+            width: 320px;
+            padding: 25px;
+        }
+    }
+}
+</style>
+<body>
+<div class="pricing-card">
+    <div class="card-header">
+        <div class="card-btn-parent">
+            <button id="basic-plan" class="active">Full Amount</button>
+            <button id="standard-plan">Pay Half </button>
+            <button id="premium-plan">Pay A Portion </button>
+            <div class="overlay"></div>
+        </div>
+    </div>
+    <div class="card-body">
+
+        <div id="card-basic-plan" class="active">
+            <div class="card-plans">
+                <span class="plan-tag">Full Amount</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระเต็ม</h3>
+                    <h3 class="plan-price">100%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+                <p>ชำระเมื่อได้รับงานทันที 100% ไม่มีผ่อน</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับงานทันที ไม่ติดสัญญาผ่อน</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับพ้อยท์ตามจำนวนที่ชำระ</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ไม่ได้รับพอยท์จากการผ่อนทุกกรณี</div>
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://liff.line.me/2006611268-pJADx5Ga'">ชำระเงินทันที คลิ๊ก </button>
+            </div>
+        </div>
+        <div id="card-standard-plan">
+            <div class="card-plans">
+
+                <span class="plan-tag">Pay Half</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระครึ่งหนึ่ง</h3>
+                    <h3 class="plan-price">50%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+
+                <p>รับงานพร้อมชำระค่าบริการครั้งแรก 50% และอีก 50% ชำระไม่เกิน 15 วัน</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ได้รับงานในครั้งแรก 100%</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ค่าธรรมเนียม 1.99% ทั้ง 2 ครั้ง </div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/wrong.svg" alt="">ไม่ได้รับพ้อยท์จากการผ่อน ทุกกรณี</div>
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://line.me/R/oaMessage/@605tgdzp?PayHalf'">เลือก Pay Half</button>
+            </div>
+        </div>
+        <div id="card-premium-plan">
+            <div class="card-plans">
+                <span class="plan-tag">Pay A Portion</span>
+                <div class="card-plan">
+                    <h3 class="plan-title">ชำระส่วนหนึ่ง</h3>
+                    <h3 class="plan-price">25%</h3>
+                </div>
+            </div>
+            <div class="card-content">
+                <p>ได้รับงานเมื่อชำระ 25% ครั้งแรก ชำระครั้งละ 25% ผ่อนนานสูงสุดถึง 4 สัปดาห์</p>
+                <div class="card-lists">
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ค่าธรรมเนียม 1.99% /ครั้ง</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/tick.svg" alt="">ชำระครั้งสุดท้าย ฟรีค่าธรรมเนียม 1.99%</div>
+                    <div class="card-list"><img src="https://rvs-pricing-card.vercel.app/wrong.svg" alt="">ไม่ได้รับพ้อยท์จากการผ่อน ทุกกรณี</div>
+
+                </div>
+            </div>
+            <div class="card-button">
+                <button onclick="document.location='https://line.me/R/oaMessage/@605tgdzp?PayAPortion'">เลือก Pay A Portion</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+const planBtns = document.querySelectorAll(".card-btn-parent button");
+const plans = document.querySelectorAll(".card-body > div");
+
+planBtns.forEach(planBtn => {
+    planBtn.addEventListener("click", function() {
+        removeClass();
+        this.classList.add("active");
+        let btnVal = this.getAttribute("id");
+        let btnId = "#card-"+btnVal;
+        document.querySelector(btnId).classList.add("active");
+    })
+})
+
+function removeClass() {
+    planBtns.forEach(planBtn => {
+        if(planBtn.classList.contains("active")) {
+            planBtn.classList.remove("active");
+        }
+    });
+    plans.forEach(plan => {
+        if(plan.classList.contains("active")) {
+            plan.classList.remove("active");
+        }
+    });
+}
+</script>
+</body>
+</html>
